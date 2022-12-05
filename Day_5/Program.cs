@@ -19,8 +19,6 @@ var moveOperations = lines.Skip(indexOfEmptyLine + 1)
     .Select(x => Array.ConvertAll(x, int.Parse))
     .ToList();
 
-
-
 void Part1(List<int[]> moveOperations)
 {
     var stacks = GetStacks(supplies, lines);
