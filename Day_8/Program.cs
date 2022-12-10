@@ -39,30 +39,62 @@ for (var i = 1; i < rows - 1; i++)
         var isVisibleFromTop = elementsInColumnBeforeCurrentElement.All(x => x < currentElement);
         var isVisibleFromBottom = elementsInColumnAfterCurrentElement.All(x => x < currentElement);
 
-        //var left = Array.FindIndex(currentRow, 0, j, x => x == elementsInRowBeforeElement.FirstOrDefault(x => x >= currentElement));
-        //left = left > -1 ? currentRow[left..j].Length : elementsInRowBeforeElement.Length;
-
-        //var right = Array.FindIndex(currentRow, j, x => x == elementsInRowAfterCurrentElement.FirstOrDefault(x => x >= currentElement));
-        //right = right > -1 ? currentRow[j..right].Length : elementsInRowAfterCurrentElement.Length;
-
-        //var top = Array.FindIndex(currentColumn, 0, i, x => x == elementsInColumnBeforeCurrentElement.FirstOrDefault(x => x >= currentElement));
-        //top = top > -1 ? currentColumn[top..i].Length : elementsInColumnBeforeCurrentElement.Length;
-        //var bottom = Array.FindIndex(currentColumn, i, x => x == elementsInColumnAfterCurrentElement.FirstOrDefault(x => x >= currentElement));
-        //bottom = bottom > -1 ? currentColumn[i..bottom].Length : elementsInColumnAfterCurrentElement.Length;
-
-        //var scenicScore = left * right * top * bottom;
-        //if (scenicScore > heighestScenicScore)
-        //{
-        //    heighestScenicScore = scenicScore;
-        //}
-
         if (isVisibleFromRight || isVisibleFromLeft || isVisibleFromBottom || isVisibleFromTop)
         {
             visibleTrees++;
         }
+
+        var left = 0; 
+        for (var l = j - 1; l >= 0; l--)
+        {
+            if (treeMap[i, l] >= currentElement)
+            {
+                left++;
+                break;
+            }
+
+            left++;
+        }
+
+        var right = 0;
+        for (var r = j + 1; r < columns; r++)
+        {
+            if (treeMap[i, r] >= currentElement)
+            {
+                right++;
+                break;
+            }
+
+            right++;
+        }
+
+        var top = 0;
+        for (var t = i - 1; t >= 0; t--)
+        {
+            if (treeMap[t, j] >= currentElement)
+            {
+                top++;
+                break;
+            }
+
+            top++;
+        }
+
+        var bottom = 0;
+        for (var b = i + 1; b < rows; b++)
+        {
+            if (treeMap[b, j] >= currentElement)
+            {
+                bottom++;
+                break;
+            }
+
+            bottom++;
+        }
+
+        var scenicScore = left * right * top * bottom;
+        heighestScenicScore = Math.Max(heighestScenicScore, scenicScore);      
     }
 }
-
-//left = 14 right = 10 up = 52 down = 46
 
 Console.ReadKey();
